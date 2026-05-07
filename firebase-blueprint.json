@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "GameState": {
+      "title": "Game State",
+      "description": "Stores the user's complete socio-economic survival game state.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The UID of the player." },
+        "persona": { "type": "string", "enum": ["Uni Student", "Fresh Grad", "Working Parent", "Retired Senior"] },
+        "stats": { 
+          "type": "object",
+          "properties": {
+            "health": { "type": "number" },
+            "wealth": { "type": "number" },
+            "energy": { "type": "number" },
+            "stress": { "type": "number" },
+            "social": { "type": "number" }
+          }
+        },
+        "day": { "type": "integer" },
+        "currentHour": { "type": "integer" },
+        "saveSlot": { "type": "integer", "enum": [1, 2] },
+        "isGameOver": { "type": "boolean" },
+        "logs": { "type": "array", "items": { "type": "string" } },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "persona", "stats", "day", "saveSlot"]
+    },
+    "LeaderboardEntry": {
+      "title": "Leaderboard Entry",
+      "description": "A public entry on the global leaderboard.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "score": { "type": "number" },
+        "persona": { "type": "string" },
+        "daysSurvived": { "type": "integer" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "score", "persona", "daysSurvived", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}/slots/{slotId}": {
+      "schema": "GameState",
+      "description": "User specific save slots."
+    },
+    "/leaderboard/{entryId}": {
+      "schema": "LeaderboardEntry",
+      "description": "Global leaderboard entries."
+    }
+  }
+}
