@@ -15,7 +15,7 @@ export async function generateEmergency(persona: PersonaType, stats: Stats) {
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -60,7 +60,7 @@ export async function generateWeeklyPostMortem(persona: PersonaType, stats: Stat
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: prompt,
     });
     return response.text;
@@ -80,7 +80,7 @@ export async function generatePostMortem(persona: PersonaType, stats: Stats, day
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-flash-latest",
       contents: prompt,
     });
     return response.text;
