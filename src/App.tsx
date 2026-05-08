@@ -730,7 +730,8 @@ function GameContent() {
 
     const hoursToDeduct = chosenHours || effectiveHours;
 
-    if (gameState.stats.wealth < action.cost) {
+    const canAfford = action.cost <= 50 || gameState.stats.wealth >= action.cost;
+    if (!canAfford) {
       toast.warning(`Not enough money! Need RM${action.cost}`);
       return;
     }
@@ -2201,7 +2202,7 @@ function ActionDropdown({ category, icon, actions, onSelect, gameState }: any) {
           </div>
           <div className="p-1">
             {actions.map((action: ActionDefinition) => {
-              const isDisabled = (gameState?.stats?.wealth ?? 0) < action.cost;
+              const isDisabled = action.cost > 50 && (gameState?.stats?.wealth ?? 0) < action.cost;
               return (
                 <DropdownMenuItem 
                   key={action.id} 
