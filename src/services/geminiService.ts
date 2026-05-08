@@ -15,7 +15,7 @@ export async function generateEmergency(persona: PersonaType, stats: Stats) {
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
+      model: "gemini-flash-lite-latest",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -60,7 +60,7 @@ export async function generateWeeklyPostMortem(persona: PersonaType, stats: Stat
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
+      model: "gemini-flash-lite-latest",
       contents: prompt,
     });
     return response.text;
@@ -71,7 +71,7 @@ export async function generateWeeklyPostMortem(persona: PersonaType, stats: Stat
 
 export async function generatePostMortem(persona: PersonaType, stats: Stats, daysSurvived: number, logs: string[]) {
   const isGraduation = daysSurvived >= 28 && persona === 'Uni Student';
-  const prompt = `Provide a 'Resilience Post-Mortem' for a ${persona} who ${isGraduation ? 'graduated after' : 'survived'} ${daysSurvived} days in 'Hidup Malaysia: The Resilience Sim'.
+  const prompt = `Provide a 'Resilience Post-Mortem' for a ${persona} who ${isGraduation ? 'graduated after' : 'survived'} ${daysSurvived} days in 'Cukup Cukup : Socio-Economic Survival'.
   Final Stats: Energy: ${stats.energy}, Health: ${stats.health}, Wealth: RM${stats.wealth}, Stress: ${stats.stress}, Hunger: ${stats.hunger}${stats.academics !== undefined ? `, Academics: ${stats.academics}/100` : ''}.
   ${isGraduation ? 'This is a graduation ceremony!' : ''}
   Key Events Summary: ${logs.slice(-10).join(", ")}.
@@ -80,7 +80,7 @@ export async function generatePostMortem(persona: PersonaType, stats: Stats, day
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
+      model: "gemini-flash-lite-atest",
       contents: prompt,
     });
     return response.text;
